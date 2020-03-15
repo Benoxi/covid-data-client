@@ -5,6 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // for later potential momment.js use
+    timezone: 'Europe/Ljubljana',
+    dateTimeSecondsFormat: 'DD.MM.YYYY HH:mm:ss',
+    dateTimeFormat: 'DD.MM.YYYY HH:mm',
+    dateFormat: 'DD.MM.YYYY',
   },
   mutations: {
   },
