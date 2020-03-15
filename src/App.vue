@@ -26,11 +26,11 @@ import { Vue, Component } from 'vue-property-decorator';
 export default class App extends Vue
 {
   drawer = false;
-  title = 'Home'
+  title = 'Dashboard'
   menus = [
     {
-        title: 'Home',
-        url: '/',
+        title: 'Dashboard',
+        url: '/dashboard',
         icon: 'mdi-home'
     },
     {
@@ -42,7 +42,7 @@ export default class App extends Vue
 
   switchPage(menu: any) {
     this.title = menu.title;
-    //this.$router.to()
+    this.$router.push(menu.url);
     console.log(menu);
   }
 
@@ -51,6 +51,10 @@ export default class App extends Vue
 </script>
 
 <style lang="scss">
+.container {
+  max-width: none !important;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

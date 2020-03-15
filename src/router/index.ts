@@ -1,20 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
     children: [
       {
           path: '',
-          name: 'AnalyticsPage',
-          component: () => import(/* webpackChunkName: "customer-list" */ '../components/Home/Home.vue'),
-      }
+          name: 'DashboardView',
+          component: () => import(/* webpackChunkName: "customer-list" */ '../components/Dashboard/View.vue'),
+      },
+      {
+          path: ':id',
+          name: 'DashboardSingle',
+          component: () => import(/* webpackChunkName: "customer-list" */ '../components/Dashboard/Single.vue'),
+      },
     ]
   },
   {
@@ -25,6 +30,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
