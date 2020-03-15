@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/dashboard',
+    path: '/',
     name: 'Dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
     children: [
@@ -16,7 +16,7 @@ const routes = [
           component: () => import(/* webpackChunkName: "customer-list" */ '../components/Dashboard/View.vue'),
       },
       {
-          path: ':id',
+          path: '/single/:id',
           name: 'DashboardSingle',
           component: () => import(/* webpackChunkName: "customer-list" */ '../components/Dashboard/Single.vue'),
       },

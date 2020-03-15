@@ -4,6 +4,8 @@
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
       <v-toolbar-title>Covid Data Query - {{ this.title }}</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-label :dark="darkMode">Dark</v-label>
+      <v-switch class="mt-6 mx-3" v-model="darkMode" @change="isDarkMode"></v-switch>
       <v-btn v-for="menu in menus" v-bind:key="menu.title" icon @click="switchPage(menu)">
         <v-icon>{{ menu.icon }}</v-icon>
       </v-btn>
@@ -13,9 +15,7 @@
       <router-view></router-view>
     </v-content>
 
-    <v-footer app>
-      <span>&copy; 2019</span>
-    </v-footer>
+    <!-- <v-footer app></v-footer> -->
   </v-app>
 </template>
 
@@ -25,12 +25,13 @@ import { Vue, Component } from 'vue-property-decorator';
 @Component
 export default class App extends Vue
 {
+  darkMode = true;
   drawer = false;
   title = 'Dashboard'
   menus = [
     {
         title: 'Dashboard',
-        url: '/dashboard',
+        url: '/',
         icon: 'mdi-home'
     },
     {
@@ -44,6 +45,9 @@ export default class App extends Vue
     this.title = menu.title;
     this.$router.push(menu.url);
     console.log(menu);
+  }
+  isDarkMode(){
+    this.$vuetify.theme.dark = this.darkMode;
   }
 
 
