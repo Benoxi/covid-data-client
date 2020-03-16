@@ -16,7 +16,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import dataPoint from '@/models/dataPoint';
 import axios from 'axios';
 // const fs = require('fs');
-import fs from 'fs';
+//import fs from 'fs';
 
 @Component
 export default class DashboardView extends Vue {
