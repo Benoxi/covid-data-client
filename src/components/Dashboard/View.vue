@@ -3,15 +3,20 @@
     <v-data-table :loading="inProgress"
      loading-text="Fetching data... Please wait!"
       :headers="headers"
-      :items="desserts"
+      :items="covidData"
+      item-key="id"
+      sort-by="confirmed"
+      sort-desc
       ></v-data-table>
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import dataPoint from '@/models/dataPoint.ts';
+import dataPoint from '@/models/dataPoint';
 import axios from 'axios';
+// const fs = require('fs');
+import fs from 'fs';
 
 @Component
 export default class DashboardView extends Vue {
@@ -19,45 +24,27 @@ export default class DashboardView extends Vue {
   countryData = [];
   covidData = Array<dataPoint>();
   inProgress = false;
-  headers= [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'fat',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ];
-        desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          }
-        ];
+  localStorageData: boolean = true;
 
-  headerss = [
-    // { text: 'Currently cofirmed', value: 'currentConfirmedCount'},
-    { text: 'Country', value: 'country' },
-    { text: 'Confirmed', value: 'confirmed' },
-    { text: 'Suspected', value: 'suspected' },
-    { text: 'Cured', value: 'cured' },
-    { text: 'Dead', value: 'dead' }
-  ];
+  get headers() {
+    return [
+      { text: 'Country', value: 'country', width: 'auto' },
+      { text: 'Confirmed', value: 'confirmed', width: '300px' },
+      { text: 'Cured', value: 'cured', width: '300px' },
+      { text: 'Dead', value: 'dead', width: '300px' },
+      // { text: 'Suspected', value: 'suspected' }
+    ]
+  };
 
   async created() {
     this.inProgress = true;
-    //await this.fetchServicesData();
+    // if(this.localStorageData)
+    //   await this.fetchLocalData();
+    // else
+    await this.fetchServicesData();
     this.inProgress = false;
   }
-  async fetchServicesData(){
+  async fetchServicesData() {
     try {
       //let res = await axios.get(`https://restcountries.eu/rest/v2/all`);
       //this.countryData = res.data;
@@ -71,30 +58,36 @@ export default class DashboardView extends Vue {
     } catch (e) {
       console.log(e);
     }
-    // @ts-ignore
-    //console.log(this.covidData[0].get('countryEnglishName'));
-    // @ts-ignore
-    console.log(this.covidData[0].id);
+  }
+  async fetchLocalData() {
+    try {
+        //@ts-ignore
+        fs.readFile('../src/store/covidCasesData.json', 'utf8', (err, jsonString) => {
+          if (err) {
+            throw(err);
+          }
+          this.parseResults(jsonString);
+        });
+      } catch (e) {
+        console.log(e);
+      }
   }
   parseResults(results: any) {
-    console.log(results);
+    console.log(JSON.stringify(results));
     // @ts-ignore
     results.forEach(res => {
-      if(res) {
+      if(res.locationId !== 0) {
         this.covidData.push({
           id: res.locationId,
-          country: 'food',//res.countryEnglishName,
-          confirmed: 0,//res.confirmedCount,
-          suspected: 0,//res.suspectedCount,
-          cured: 0,//res.curedCount,
-          dead: 0,//res.deadCount
+          country: res.countryEnglishName,
+          confirmed: res.confirmedCount,
+          suspected: res.suspectedCount,
+          cured: res.curedCount,
+          dead: res.deadCount
         });
       }
     });
-    console.log(this.covidData);
   }
-
-
 }
 </script>
 
