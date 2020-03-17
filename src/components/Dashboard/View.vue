@@ -15,8 +15,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import dataPoint from '@/models/dataPoint';
 import axios from 'axios';
-// const fs = require('fs');
-//import fs from 'fs';
 
 @Component
 export default class DashboardView extends Vue {
@@ -28,11 +26,10 @@ export default class DashboardView extends Vue {
 
   get headers() {
     return [
-      { text: 'Country', value: 'country', width: 'auto' },
-      { text: 'Confirmed', value: 'confirmed', width: '300px' },
-      { text: 'Cured', value: 'cured', width: '300px' },
-      { text: 'Dead', value: 'dead', width: '300px' },
-      // { text: 'Suspected', value: 'suspected' }
+      { text: 'Country', value: 'country', width: '300px' },
+      { text: 'Confirmed', value: 'confirmed' },
+      { text: 'Cured', value: 'cured'},
+      { text: 'Dead', value: 'dead'},
     ]
   };
 
@@ -53,8 +50,9 @@ export default class DashboardView extends Vue {
     }
 
     try {
-      let res = await axios.get(`https://lab.isaaclin.cn/nCoV/api/area`);
-      this.parseResults(res.data.results);
+      // let res = await axios.get(`https://lab.isaaclin.cn/nCoV/api/area`);
+      let res = await axios.get(`http://127.0.0.1:5000/api/v1/covid`);
+      this.parseResults(JSON.parse(res.data).results);
     } catch (e) {
       console.log(e);
     }
@@ -73,7 +71,6 @@ export default class DashboardView extends Vue {
       }
   }
   parseResults(results: any) {
-    console.log(JSON.stringify(results));
     // @ts-ignore
     results.forEach(res => {
       if(res.locationId !== 0) {
