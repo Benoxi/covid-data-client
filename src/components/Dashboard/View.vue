@@ -27,9 +27,12 @@ export default class DashboardView extends Vue {
   get headers() {
     return [
       { text: 'Country', value: 'country', width: '300px' },
-      { text: 'Confirmed', value: 'confirmed' },
-      { text: 'Cured', value: 'cured'},
+      { text: 'Cases', value: 'cases' },
+      { text: 'Todays cases', value: 'todayCases' },
+      { text: 'Active', value: 'active'},
       { text: 'Dead', value: 'dead'},
+      { text: 'Recovered', value: 'recovered'},
+
     ]
   };
 
@@ -51,7 +54,7 @@ export default class DashboardView extends Vue {
 
     try {
       let res = await axios.get(process.env.VUE_APP_API_ENDPOINT + `/v1/covid`);
-      this.parseResults(JSON.parse(res.data).results);
+      this.parseResults(JSON.parse(res.data));
     } catch (e) {
       console.log(e);
     }
@@ -70,17 +73,22 @@ export default class DashboardView extends Vue {
       }
   }
   parseResults(results: any) {
+    let id = 0;
     // @ts-ignore
     results.forEach(res => {
       if(res.locationId !== 0) {
         this.covidData.push({
-          id: res.locationId,
-          country: res.countryEnglishName,
-          confirmed: res.confirmedCount,
-          suspected: res.suspectedCount,
-          cured: res.curedCount,
-          dead: res.deadCount
+          id: id,
+          country: res.country,
+          cases: res.cases,
+          todayCases: res.todayCases,
+          dead: res.deaths,
+          todayDead: res.todayDeaths,
+          recovered: res.recovered,
+          active: res.active,
+          critical: res.critical
         });
+      id++;
       }
     });
   }

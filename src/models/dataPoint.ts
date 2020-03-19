@@ -1,8 +1,11 @@
 export default interface dataPoint {
     id: number,
     country: string,
-    confirmed: number,
-    suspected: number,
-    cured: number,
-    dead: number
+    cases: number,
+    todayCases: number,
+    dead: number,
+    todayDead: number,
+    recovered: number,
+    active: number,
+    critical: number
 };
