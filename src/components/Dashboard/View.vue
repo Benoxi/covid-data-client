@@ -62,7 +62,7 @@ export default class DashboardView extends Vue {
 
     try {
       let res = await axios.get(process.env.VUE_APP_API_ENDPOINT + `/v1/covid`);
-      this.parseResults(JSON.parse(res.data));
+      this.parseResults(res.data);
     } catch (e) {
       console.log(e);
     }
