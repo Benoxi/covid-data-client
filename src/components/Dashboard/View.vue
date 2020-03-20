@@ -1,13 +1,21 @@
 <template>
   <v-container class="view">
-    <v-data-table :loading="inProgress"
-     loading-text="Fetching data... Please wait!"
-      :headers="headers"
-      :items="covidData"
-      item-key="id"
-      sort-by="confirmed"
-      sort-desc
-      ></v-data-table>
+    <v-card>
+      <v-card-title class="py-1">
+        Dashboard
+        <v-spacer></v-spacer>
+        <v-text-field v-model="search" label="Search" append-icon="mdi-magnify"></v-text-field>
+      </v-card-title>
+        <v-data-table :loading="inProgress"
+        loading-text="Fetching data... Please wait!"
+          :headers="headers"
+          :items="covidData"
+          :search="search"
+          item-key="id"
+          sort-by="cases"
+          sort-desc
+          ></v-data-table>
+      </v-card>
   </v-container>
 </template>
 
@@ -19,6 +27,7 @@ import axios from 'axios';
 @Component
 export default class DashboardView extends Vue {
   // data = [];
+  search = [];
   countryData = [];
   covidData = Array<dataPoint>();
   inProgress = false;
@@ -32,7 +41,6 @@ export default class DashboardView extends Vue {
       { text: 'Active', value: 'active'},
       { text: 'Dead', value: 'dead'},
       { text: 'Recovered', value: 'recovered'},
-
     ]
   };
 
