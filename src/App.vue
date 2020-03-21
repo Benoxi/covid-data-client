@@ -2,7 +2,10 @@
   <v-app id="inspire">
     <v-app-bar app clipped-left >
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
-      <v-toolbar-title>Covid Data Query - {{ this.title }}</v-toolbar-title>
+      <v-toolbar-title>
+        <v-img class="float-left" :src="require('@/assets/logo.png')" height="75px" width="60px"></v-img>
+        <div class="title-div">Data Query - {{ this.title }}</div>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-label :dark="darkMode">Dark</v-label>
       <v-switch class="mt-6 mx-3" v-model="darkMode" @change="isDarkMode"></v-switch>
@@ -57,6 +60,11 @@ export default class App extends Vue
 <style lang="scss">
 .container {
   max-width: none !important;
+}
+
+.title-div {
+  margin-left: 75px;
+  padding-top: 23px;
 }
 
 #app {

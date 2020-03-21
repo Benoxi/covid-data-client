@@ -26,8 +26,7 @@ import axios from 'axios';
 
 @Component
 export default class DashboardView extends Vue {
-  // data = [];
-  search = [];
+  search = "";
   countryData = [];
   covidData = Array<dataPoint>();
   inProgress = false;
@@ -69,7 +68,7 @@ export default class DashboardView extends Vue {
   }
   async fetchLocalData() {
     try {
-        //@ts-ignore
+        //@ts-ignoregit push
         fs.readFile('../src/store/covidCasesData.json', 'utf8', (err, jsonString) => {
           if (err) {
             throw(err);
@@ -85,18 +84,8 @@ export default class DashboardView extends Vue {
     // @ts-ignore
     results.forEach(res => {
       if(res.locationId !== 0) {
-        this.covidData.push({
-          id: id,
-          country: res.country,
-          cases: res.cases,
-          todayCases: res.todayCases,
-          dead: res.deaths,
-          todayDead: res.todayDeaths,
-          recovered: res.recovered,
-          active: res.active,
-          critical: res.critical
-        });
-      id++;
+        res.id = id++;
+        this.covidData.push(res);
       }
     });
   }
