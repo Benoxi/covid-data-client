@@ -1,4 +1,4 @@
-export default interface dataPoint {
+export default interface DataPoint {
     id: number,
     country: string,
     cases: number,

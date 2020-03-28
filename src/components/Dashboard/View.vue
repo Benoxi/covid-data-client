@@ -21,14 +21,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import dataPoint from '@/models/dataPoint';
+import DataPoint from '@/models/DataPoint';
 import axios from 'axios';
 
 @Component
 export default class DashboardView extends Vue {
   search = "";
   countryData = [];
-  covidData = Array<dataPoint>();
+  covidData = Array<DataPoint>();
   inProgress = false;
   localStorageData: boolean = true;
 
@@ -65,19 +65,6 @@ export default class DashboardView extends Vue {
     } catch (e) {
       console.log(e);
     }
-  }
-  async fetchLocalData() {
-    try {
-        //@ts-ignoregit push
-        fs.readFile('../src/store/covidCasesData.json', 'utf8', (err, jsonString) => {
-          if (err) {
-            throw(err);
-          }
-          this.parseResults(jsonString);
-        });
-      } catch (e) {
-        console.log(e);
-      }
   }
   parseResults(results: any) {
     let id = 0;
