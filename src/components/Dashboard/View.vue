@@ -34,12 +34,12 @@ export default class DashboardView extends Vue {
 
   get headers() {
     return [
-      { text: 'Country', value: 'country', width: '300px' },
-      { text: 'Cases', value: 'cases' },
-      { text: 'Todays cases', value: 'todayCases' },
-      { text: 'Active', value: 'active'},
-      { text: 'Dead', value: 'dead'},
-      { text: 'Recovered', value: 'recovered'},
+      { text: 'Country', value: 'Country', width: '300px' },
+      { text: 'Cases', value: 'TotalConfirmed' },
+      { text: 'Todays cases', value: 'NewConfirmed' },
+      // { text: 'Active', value: 'active'},
+      { text: 'Dead', value: 'TotalDeaths'},
+      { text: 'Recovered', value: 'TotalRecovered'},
     ]
   };
 
