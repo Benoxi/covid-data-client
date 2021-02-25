@@ -1,6 +1,6 @@
 <template>
   <v-container class="single">
-    This is the single country page
+    This is the single country dialog
   </v-container>
 </template>
 

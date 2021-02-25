@@ -8,36 +8,48 @@
       </v-card-title>
         <v-data-table :loading="inProgress"
         loading-text="Fetching data... Please wait!"
+          @click:row="dialog = true"
           :headers="headers"
           :items="covidData"
           :search="search"
-          item-key="id"
+          item-key="ID"
           sort-by="cases"
           sort-desc
           ></v-data-table>
       </v-card>
+
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <dashboard-dialog v-if="dialog"/>
+      </v-dialog>
+
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import DashboardDialog from '@/components/Dashboard/Dialog.vue';
 import DataPoint from '@/models/DataPoint';
 import axios from 'axios';
 
-@Component
+
+@Component({
+    components: {
+        DashboardDialog
+    }
+})
 export default class DashboardView extends Vue {
-  search = "";
+  search: string = "";
   countryData = [];
   covidData = Array<DataPoint>();
-  inProgress = false;
+  inProgress: boolean = false;
   localStorageData: boolean = true;
+  dialog: boolean = false;
 
   get headers() {
     return [
       { text: 'Country', value: 'Country', width: '300px' },
       { text: 'Cases', value: 'TotalConfirmed' },
-      { text: 'Todays cases', value: 'NewConfirmed' },
-      // { text: 'Active', value: 'active'},
+      { text: 'Today', value: 'NewConfirmed' },
       { text: 'Dead', value: 'TotalDeaths'},
       { text: 'Recovered', value: 'TotalRecovered'},
     ]
