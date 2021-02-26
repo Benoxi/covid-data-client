@@ -33,7 +33,9 @@
       <v-row>
         <v-col>
           <p class="text-h6 text--primary font-weight-bold">Graph</p>
-
+          <v-card class="pa-4">
+            <cases-chart :chart-data="casesData"></cases-chart>
+          </v-card>
         </v-col>
       </v-row>
     </v-card-text>
@@ -46,7 +48,7 @@
 
 <script lang="ts">
 import DataPoint from '@/models/DataPoint';
-import CasesChart from '@/components/Dashboard/CasesChart'
+import CasesChart from '@/components/Dashboard/CasesChart.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component({
@@ -58,6 +60,7 @@ export default class DashboardDialog extends Vue {
 
   @Prop() countryData!: DataPoint
 
+  casesData = [];
 
   created() {
     console.log("countryData");
