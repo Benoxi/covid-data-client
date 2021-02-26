@@ -8,18 +8,27 @@
       </v-card-title>
         <v-data-table :loading="inProgress"
         loading-text="Fetching data... Please wait!"
-          @click:row="dialog = true"
           :headers="headers"
           :items="covidData"
           :search="search"
           item-key="ID"
           sort-by="cases"
           sort-desc
-          ></v-data-table>
+          >
+          <template v-slot:item="{ item }">
+            <tr @click="openDialog(item)">
+              <td>{{ item.Country}}</td>
+              <td>{{ item.TotalConfirmed}}</td>
+              <td>{{ item.NewConfirmed}}</td>
+              <td>{{ item.TotalDeaths}}</td>
+              <td>{{ item.TotalRecovered}}</td>
+            </tr>
+          </template>
+          </v-data-table>
       </v-card>
 
-      <v-dialog v-model="dialog" persistent max-width="600px">
-        <dashboard-dialog v-if="dialog"/>
+      <v-dialog v-model="dialog" max-width="800px">
+        <dashboard-dialog v-if="dialog" :countryData="selectedCountry" v-on:close-dialog-event="closeDialog"/>
       </v-dialog>
 
   </v-container>
@@ -44,6 +53,7 @@ export default class DashboardView extends Vue {
   inProgress: boolean = false;
   localStorageData: boolean = true;
   dialog: boolean = false;
+  selectedCountry = Array<Object>();
 
   get headers() {
     return [
@@ -87,6 +97,13 @@ export default class DashboardView extends Vue {
         this.covidData.push(res);
       }
     });
+  }
+  openDialog(item: any) {
+    this.selectedCountry = item;
+    this.dialog = true;
+  }
+  closeDialog() {
+    this.dialog = false;
   }
 }
 </script>
