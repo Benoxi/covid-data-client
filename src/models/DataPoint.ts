@@ -1,3 +1,4 @@
+import DayPoint from './DayPoint';
 export default interface DataPoint {
     ID: string,
     Country: string,
@@ -10,5 +11,5 @@ export default interface DataPoint {
     TotalRecovered: number,
     NewRecovered: number,
     Slug: string,
-    DayOne: Object
+    DayOne: Array<DayPoint>
 };

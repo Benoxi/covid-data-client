@@ -48,6 +48,7 @@
 
 <script lang="ts">
 import DataPoint from '@/models/DataPoint';
+import DayPoint from '@/models/DayPoint';
 import CasesChart from '@/components/Dashboard/CasesChart.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
@@ -60,11 +61,47 @@ export default class DashboardDialog extends Vue {
 
   @Prop() countryData!: DataPoint
 
-  casesData = [];
+  casesData = {};
 
   created() {
-    console.log("countryData");
-    console.log(this.countryData);
+    // console.log("countryData");
+    // console.log(this.countryData);
+    this.createCasesData()
+  }
+  createCasesData(){
+    console.log(this.countryData.DayOne);
+
+    let activeArray: Array<number> = [];
+    let confirmedArray: Array<number> = [];
+    let dateArray: Array<string> = [];
+
+    this.countryData.DayOne.forEach(element => {
+      activeArray.push(element.Active);
+      confirmedArray.push(element.Confirmed);
+      dateArray.push(element.Date);
+    });
+
+    this.casesData = {
+				labels: dateArray,
+				datasets: [
+					{
+						label: 'Active Cases',
+						backgroundColor: '#283593',
+						borderColor: '#283593',
+						data: activeArray,
+						lineTension: 0,
+						fill: false
+					},
+					{
+						label: 'Confimed Cases',
+						backgroundColor: '#C62828',
+						borderColor: '#C62828',
+						data: confirmedArray,
+						lineTension: 0,
+						fill: false
+					}
+				]
+			}
   }
 }
 </script>
