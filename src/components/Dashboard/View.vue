@@ -17,11 +17,11 @@
           >
           <template v-slot:item="{ item }">
             <tr @click="openDialog(item)">
-              <td>{{ item.Country}}</td>
-              <td>{{ item.TotalConfirmed}}</td>
-              <td>{{ item.NewConfirmed}}</td>
-              <td>{{ item.TotalDeaths}}</td>
-              <td>{{ item.TotalRecovered}}</td>
+              <td>{{ item.Country }}</td>
+              <td>{{ item.TotalConfirmed }}</td>
+              <td>{{ item.NewConfirmed }}</td>
+              <td>{{ item.TotalDeaths }}</td>
+              <td>{{ item.TotalRecovered }}</td>
             </tr>
           </template>
           </v-data-table>
