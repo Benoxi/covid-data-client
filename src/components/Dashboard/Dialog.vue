@@ -51,6 +51,7 @@ import DataPoint from '@/models/DataPoint';
 import DayPoint from '@/models/DayPoint';
 import CasesChart from '@/components/Dashboard/CasesChart.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import moment from 'moment';
 
 @Component({
     components: {
@@ -64,12 +65,10 @@ export default class DashboardDialog extends Vue {
   casesData = {};
 
   created() {
-    // console.log("countryData");
-    // console.log(this.countryData);
     this.createCasesData()
   }
   createCasesData(){
-    console.log(this.countryData.DayOne);
+    // console.log(moment.now());
 
     let activeArray: Array<number> = [];
     let confirmedArray: Array<number> = [];

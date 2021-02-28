@@ -47,7 +47,7 @@ export default class App extends Vue
   switchPage(menu: any) {
     this.title = menu.title;
     this.$router.push(menu.url);
-    console.log(menu);
+    // console.log(menu);
   }
   isDarkMode(){
     this.$vuetify.theme.dark = this.darkMode;
