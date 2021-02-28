@@ -77,7 +77,9 @@ export default class DashboardDialog extends Vue {
     this.countryData.DayOne.forEach(element => {
       activeArray.push(element.Active);
       confirmedArray.push(element.Confirmed);
-      dateArray.push(element.Date);
+
+      let newDate = moment(element.Date).format("DD MMM YY")
+      dateArray.push(newDate);
     });
 
     this.casesData = {
