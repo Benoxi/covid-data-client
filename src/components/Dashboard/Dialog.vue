@@ -52,6 +52,7 @@ import DayPoint from '@/models/DayPoint';
 import CasesChart from '@/components/Dashboard/CasesChart.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import moment from 'moment';
+import axios from 'axios';
 
 @Component({
     components: {
@@ -63,18 +64,28 @@ export default class DashboardDialog extends Vue {
   @Prop() countryData!: DataPoint
 
   casesData = {};
+  dayOneData: Array<DayPoint> = []
 
   created() {
-    this.createCasesData()
+    this.fetchDayOneData()
   }
-  createCasesData(){
+  async fetchDayOneData() {
+    try {
+      let res = await axios.get(process.env.VUE_APP_API_ENDPOINT + `/v1/covid/` + this.countryData.Slug);
+      this.createCasesData(res.data)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  createCasesData(data: Array<DayPoint>){
     // console.log(moment.now());
+    this.dayOneData = data;
 
     let activeArray: Array<number> = [];
     let confirmedArray: Array<number> = [];
     let dateArray: Array<string> = [];
 
-    this.countryData.DayOne.forEach(element => {
+    data.forEach(element => {
       activeArray.push(element.Active);
       confirmedArray.push(element.Confirmed);
 
