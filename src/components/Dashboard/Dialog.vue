@@ -60,7 +60,8 @@ import axios from 'axios';
     }
 })
 export default class DashboardDialog extends Vue {
-
+  // TODO: Add loading screen while waiting for request
+  // TODO: Abstract requests to different file
   @Prop() countryData!: DataPoint
 
   casesData = {};
