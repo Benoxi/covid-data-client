@@ -47,8 +47,11 @@
       <v-row>
         <v-col>
           <p class="text-h6 text--primary font-weight-bold">Graph</p>
-          <v-card class="pa-4">
+          <v-card class="pa-4" v-if="dayOneData.length">
             <cases-chart :chart-data="casesData"></cases-chart>
+          </v-card>
+          <v-card v-else>
+            <p class="py-3 text-center">Ooops! There seems to be no data.</p>
           </v-card>
         </v-col>
       </v-row>
@@ -86,13 +89,13 @@ export default class DashboardDialog extends Vue {
   async fetchDayOneData() {
     try {
       let res = await axios.get(process.env.VUE_APP_API_ENDPOINT + `/v1/covid/` + this.countryData.Slug);
-      this.createCasesData(res.data)
+      if(!res.data.message)
+        this.createCasesData(res.data)
     } catch (e) {
       console.log(e);
     }
   }
-  createCasesData(data: Array<DayPoint>){
-    // console.log(moment.now());
+  createCasesData(data: Array<DayPoint>) {
     this.dayOneData = data;
 
     let activeArray: Array<number> = [];
