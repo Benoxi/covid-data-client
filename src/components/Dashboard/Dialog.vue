@@ -119,7 +119,8 @@ export default class DashboardDialog extends Vue {
 						borderColor: '#283593',
 						data: activeArray,
 						lineTension: 0,
-						fill: false
+            fill: false,
+            pointRadius: 0
 					},
 					{
 						label: 'Confimed Cases',
@@ -127,10 +128,12 @@ export default class DashboardDialog extends Vue {
 						borderColor: '#C62828',
 						data: confirmedArray,
 						lineTension: 0,
-						fill: false
-					}
-				]
-			}
+						fill: false,
+            pointRadius: 0
+          }
+        ],
+      }
+      
   }
 }
 </script>
