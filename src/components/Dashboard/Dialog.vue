@@ -1,7 +1,13 @@
 <template>
   <v-card class="dialog">
-    <v-card-title>{{ this.countryData.Country}}</v-card-title>
-    <v-card-text>
+    <v-toolbar dense flat>
+      <v-card-title>{{ this.countryData.Country}}</v-card-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="$emit('close-dialog-event')">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-toolbar>
+    <v-card-text class="pt-5">
       <v-row>
         <v-col>
           <p class="text-subtitle-1 text--primary font-weight-bold">New cases</p>
@@ -41,7 +47,6 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="red" text @click="$emit('close-dialog-event')">Close</v-btn>
     </v-card-actions>
   </v-card>
 </template>
