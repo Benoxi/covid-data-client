@@ -7,7 +7,15 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-card-text class="pt-5">
+    <v-card-text class="my-5" v-if="inProgress">
+      <p class="text-center text-subtitle-1 text--primary">
+        Fetching...
+      </p>
+      <v-progress-linear
+        indeterminate
+      ></v-progress-linear>
+    </v-card-text>
+    <v-card-text class="pt-5" v-else>
       <v-row>
         <v-col>
           <p class="text-subtitle-1 text--primary font-weight-bold">New cases</p>
@@ -45,9 +53,6 @@
         </v-col>
       </v-row>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -70,10 +75,13 @@ export default class DashboardDialog extends Vue {
   @Prop() countryData!: DataPoint
 
   casesData = {};
-  dayOneData: Array<DayPoint> = []
+  dayOneData: Array<DayPoint> = [];
+  inProgress: Boolean = false;
 
   created() {
+    this.inProgress = true;
     this.fetchDayOneData()
+    this.inProgress = false;
   }
   async fetchDayOneData() {
     try {

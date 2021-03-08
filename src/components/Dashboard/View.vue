@@ -51,7 +51,6 @@ export default class DashboardView extends Vue {
   countryData = [];
   covidData = Array<DataPoint>();
   inProgress: boolean = false;
-  localStorageData: boolean = true;
   dialog: boolean = false;
   selectedCountry = Array<Object>();
 
@@ -67,9 +66,6 @@ export default class DashboardView extends Vue {
 
   async created() {
     this.inProgress = true;
-    // if(this.localStorageData)
-    //   await this.fetchLocalData();
-    // else
     await this.fetchServicesData();
     this.inProgress = false;
   }
