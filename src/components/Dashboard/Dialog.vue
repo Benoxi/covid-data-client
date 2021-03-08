@@ -1,6 +1,6 @@
 <template>
   <v-card class="dialog">
-    <v-toolbar dense flat>
+    <v-toolbar flat>
       <v-card-title>{{ this.countryData.Country}}</v-card-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="$emit('close-dialog-event')">

@@ -27,7 +27,7 @@
           </v-data-table>
       </v-card>
 
-      <v-dialog v-model="dialog" max-width="800px" :scrollable="false">
+      <v-dialog v-model="dialog" max-width="800px" scrollable>
         <dashboard-dialog v-if="dialog" :countryData="selectedCountry" v-on:close-dialog-event="closeDialog"/>
       </v-dialog>
 
